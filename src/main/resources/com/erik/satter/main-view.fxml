@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erik.satter.Controller">
+  <tabs>
+    <Tab closable="false" text="DPLL SAT Solver">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <Text fx:id="formulaLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Formula">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="input" prefHeight="50.0" prefWidth="200.0" promptText="Example: (x+y')(y+z')" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </TextArea>
+                  <Text fx:id="output" layoutX="30.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Output">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </content>
+    </Tab>
+    <Tab closable="false" text="Sudoku Solver">
+         <content>
+            <AnchorPane>
+               <children>
+                  <GridPane alignment="CENTER" gridLinesVisible="true" prefHeight="300.0" prefWidth="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <GridPane alignment="CENTER" gridLinesVisible="true">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TextField alignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                        <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="10.0" layoutY="10.0" GridPane.rowIndex="1">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TextField alignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                        <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="10.0" layoutY="10.0" GridPane.rowIndex="2">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TextField alignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                         <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="10.0" layoutY="10.0" GridPane.columnIndex="1">
+                             <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                             </columnConstraints>
+                             <rowConstraints>
+                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                             </rowConstraints>
+                             <TextField alignment="CENTER">
+                                <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                </font>
+                             </TextField>
+                             <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1">
+                                <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                </font>
+                             </TextField>
+                             <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" GridPane.columnIndex="2">
+                                <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                </font>
+                             </TextField>
+                             <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="1">
+                                <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                </font>
+                             </TextField>
+                             <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                </font>
+                             </TextField>
+                             <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                </font>
+                             </TextField>
+                             <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="2">
+                                <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                </font>
+                             </TextField>
+                             <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                </font>
+                             </TextField>
+                             <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                </font>
+                             </TextField>
+                         </GridPane>
+                        <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="10.0" layoutY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TextField alignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                        <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="10.0" layoutY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TextField alignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                        <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="10.0" layoutY="10.0" GridPane.columnIndex="2">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TextField alignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                        <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="10.0" layoutY="10.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TextField alignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                        <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="10.0" layoutY="10.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TextField alignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                              <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Arial Bold" size="16.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </GridPane>
+                  <Button mnemonicParsing="false" text="Solve" textAlignment="CENTER" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </AnchorPane>
+         </content></Tab>
+  </tabs>
+</TabPane>
