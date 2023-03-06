@@ -1,2 +1,83 @@
-.root {
+.tab-pane {
+    -fx-background-color: #1e1f22;
+    -fx-text-fill: white;
+    -fx-tab-min-width: 50px;
+    -fx-tab-min-height: 30px;
+}
+
+.tab {
+    -fx-background-color: #080808;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+}
+
+.tab-header-background {
+    -fx-background-color: #080808;
+}
+
+.tab-header-area {
+    -fx-padding: 0;
+}
+
+.tab .tab-label {
+    -fx-text-fill: white;
+    -fx-padding: 0 5 0 5;
+}
+
+.tab:selected {
+    -fx-background-color: #1e1f22;
+}
+
+.tab:selected .focus-indicator {
+    -fx-border-width: 0;
+}
+
+.grid {
+    -fx-border-color: white;
+    -fx-border-insets: 0;
+}
+
+.text-field {
+    -fx-display-caret: false;
+    -fx-background-color: #1e1f22;
+    -fx-text-fill: white;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.text-field:focused {
+    -fx-background-color: #105e7a;
+}
+
+.button {
+    -fx-background-color: #1e1f22;
+    -fx-border-color: #039ED3;
+    -fx-text-fill: white;
+}
+
+.button:pressed {
+    -fx-background-color: black;
+}
+
+.text-area {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: grey;
+    -fx-text-box-border: transparent;
+    -fx-border-radius: 6px;
+}
+
+.text-area .content {
+    -fx-background-color: #1e1f22;
+    -fx-background-radius: 0;
+    -fx-padding: 8px;
+}
+
+#valid {
+    -fx-border-color: #039ED3;
+}
+
+#invalid {
+    -fx-border-color: red;
 }

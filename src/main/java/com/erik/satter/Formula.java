@@ -26,7 +26,7 @@ public class Formula {
             clause = clause.substring(1, clause.length() - 1);
             Set<Literal> literals = new HashSet<>();
             Stream.of(clause.split("\\+")).map(s -> new Literal(s.charAt(0), s.length() > 1)).forEachOrdered(literals::add);
-            clauses.add(new Formula.Clause(literals));
+            clauses.add(new Clause(literals));
         }
     }
 
