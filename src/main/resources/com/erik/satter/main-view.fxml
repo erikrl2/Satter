@@ -562,7 +562,7 @@
                         </GridPane>
                      </children>
                   </GridPane>
-                  <Button mnemonicParsing="false" onAction="#solveSudoku" text="Solve" textAlignment="CENTER" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="solveButton" mnemonicParsing="false" onAction="#solveSudoku" text="Solve" textAlignment="CENTER" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Arial" size="13.0" />
                      </font>

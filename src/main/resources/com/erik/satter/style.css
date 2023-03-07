@@ -42,6 +42,7 @@
     -fx-display-caret: false;
     -fx-background-color: #1e1f22;
     -fx-text-fill: white;
+    -fx-highlight-fill: transparent;
     -fx-border-color: black;
     -fx-border-width: 1px;
 }

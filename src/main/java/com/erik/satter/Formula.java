@@ -8,11 +8,20 @@ import java.util.stream.Stream;
 
 public class Formula {
     private final Set<Clause> clauses;
-    private final Map<Character, Boolean> assignment;
+    private final Map<String, Boolean> assignment;
 
     public Formula() {
         clauses = new HashSet<>();
         assignment = new HashMap<>();
+    }
+
+    public Formula(String formula) {
+        this();
+        parse(formula);
+    }
+
+    public static boolean isValidCNF(String formula) {
+        return formula.matches("(\\(\\w+'?(\\+\\w+'?)*\\))*");
     }
 
     public void parse(String formula) {
@@ -25,12 +34,15 @@ public class Formula {
             String clause = clauseMatcher.group();
             clause = clause.substring(1, clause.length() - 1);
             Set<Literal> literals = new HashSet<>();
-            Stream.of(clause.split("\\+")).map(s -> new Literal(s.charAt(0), s.length() > 1)).forEachOrdered(literals::add);
+            Stream.of(clause.split("\\+")).map(s -> {
+                boolean comp = s.endsWith("'");
+                return new Literal(comp ? s.substring(0, s.length() - 1) : s, comp);
+            }).forEachOrdered(literals::add);
             clauses.add(new Clause(literals));
         }
     }
 
-    public Map<Character, Boolean> getAssignment() {
+    public Map<String, Boolean> getAssignment() {
         if (assignment.isEmpty()) {
             solve(new HashSet<>(Set.copyOf(clauses)));
         }
@@ -41,6 +53,7 @@ public class Formula {
         Set<Literal> oneLiterals = clauses.stream().filter(Clause::isSizeOne).map(Clause::getAnyLiteral).collect(Collectors.toSet());
         oneLiterals.forEach(l -> setTrue(clauses, l));
 
+        // Maybe remove PLR for sudoku performance?
         Set<Literal> literals = clauses.stream().flatMap(Clause::stream).collect(Collectors.toSet());
         Set<Literal> pureLiterals = literals.stream().filter(l -> !literals.contains(l.complemented())).collect(Collectors.toSet());
 
@@ -65,8 +78,8 @@ public class Formula {
 
         Literal literal = clauses.stream().findAny().get().getAnyLiteral();
         Set<Clause> backup = new HashSet<>(Set.copyOf(clauses));
-        backup.add(new Clause(Set.of(literal.complemented())));
-        clauses.add(new Clause(Set.of(literal)));
+        backup.add(new Clause(new HashSet<>(Set.of(literal.complemented()))));
+        clauses.add(new Clause(new HashSet<>(Set.of(literal))));
 
         boolean satisfiable = solve(clauses) || solve(backup);
         if (satisfiable) {
@@ -92,6 +105,10 @@ public class Formula {
             }
         }
         return removed;
+    }
+
+    public void mergeWithCopyOf(Formula other) {
+        clauses.addAll(new HashSet<>(Set.copyOf(other.clauses)));
     }
 
     @Override
@@ -148,16 +165,16 @@ public class Formula {
 
         @Override
         public String toString() {
-            return "(" + literals.stream().sorted(Comparator.comparingInt(l -> l.variable))
+            return "(" + literals.stream().sorted(Comparator.comparing(l -> l.variable))
                     .map(String::valueOf).collect(Collectors.joining(" ∨ ")) + ")";
         }
     }
 
     public static class Literal {
-        private final char variable;
+        private final String variable; // Make generic for less memory usage (i.e. short instead of string)
         private final boolean complement;
 
-        public Literal(char variable, boolean complement) {
+        public Literal(String variable, boolean complement) {
             this.variable = variable;
             this.complement = complement;
         }
@@ -176,19 +193,15 @@ public class Formula {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Literal literal = (Literal) o;
-            if (variable != literal.variable) return false;
+            if (!Objects.equals(variable, literal.variable)) return false;
             return complement == literal.complement;
         }
 
         @Override
         public int hashCode() {
-            int result = variable;
+            int result = variable.hashCode();
             result = 31 * result + (complement ? 1 : 0);
             return result;
         }
-    }
-
-    public static boolean isValidCNF(String formula) {
-        return formula.matches("(\\(\\w'?(\\+\\w'?)*\\))*");
     }
 }
