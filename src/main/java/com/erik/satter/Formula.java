@@ -44,22 +44,25 @@ public class Formula {
 
     public Map<String, Boolean> getAssignment() {
         if (assignment.isEmpty()) {
-            solve(new HashSet<>(Set.copyOf(clauses)));
+            solve(clauses); // Note: This messes up the clauses Set
         }
         return assignment;
     }
 
     private boolean solve(Set<Clause> clauses) {
-        Set<Literal> oneLiterals = clauses.stream().filter(Clause::isSizeOne).map(Clause::getAnyLiteral).collect(Collectors.toSet());
-        oneLiterals.forEach(l -> setTrue(clauses, l));
+        Set<Literal> assignedLiterals = new HashSet<>();
+
+        do {
+            Set<Literal> oneLiterals = clauses.stream().filter(Clause::isSizeOne).map(Clause::getAnyLiteral).collect(Collectors.toSet());
+            assignedLiterals.addAll(oneLiterals);
+            oneLiterals.forEach(l -> setTrue(clauses, l));
+        } while (clauses.stream().anyMatch(Clause::isSizeOne));
 
         // Maybe remove PLR for sudoku performance?
         Set<Literal> literals = clauses.stream().flatMap(Clause::stream).collect(Collectors.toSet());
         Set<Literal> pureLiterals = literals.stream().filter(l -> !literals.contains(l.complemented())).collect(Collectors.toSet());
 
-        Set<Literal> assignedLiterals = new HashSet<>(oneLiterals);
         assignedLiterals.addAll(pureLiterals);
-
         for (Literal l : pureLiterals) {
             if (!setTrue(clauses, l)) {
                 assignedLiterals.remove(l);
@@ -77,11 +80,11 @@ public class Formula {
         }
 
         Literal literal = clauses.stream().findAny().get().getAnyLiteral();
-        Set<Clause> backup = new HashSet<>(Set.copyOf(clauses));
-        backup.add(new Clause(new HashSet<>(Set.of(literal.complemented()))));
-        clauses.add(new Clause(new HashSet<>(Set.of(literal))));
+        Set<Clause> clausesCopy = getCopyOfClauses();
+        clausesCopy.add(new Clause(literal.complemented()));
+        clauses.add(new Clause(literal));
 
-        boolean satisfiable = solve(clauses) || solve(backup);
+        boolean satisfiable = solve(clauses) || solve(clausesCopy);
         if (satisfiable) {
             assignment.putAll(variableMap);
         }
@@ -108,7 +111,11 @@ public class Formula {
     }
 
     public void mergeWithCopyOf(Formula other) {
-        clauses.addAll(new HashSet<>(Set.copyOf(other.clauses)));
+        clauses.addAll(other.getCopyOfClauses());
+    }
+
+    private Set<Clause> getCopyOfClauses() {
+        return clauses.stream().map(Clause::getCopy).collect(Collectors.toSet());
     }
 
     @Override
@@ -124,6 +131,10 @@ public class Formula {
 
         public Clause(Set<Literal> literals) {
             this.literals = literals;
+        }
+
+        public Clause(Literal... literals) {
+            this.literals = new HashSet<>(Set.of(literals));
         }
 
         public boolean contains(Literal literal) {
@@ -148,6 +159,10 @@ public class Formula {
 
         public Stream<Literal> stream() {
             return literals.stream();
+        }
+
+        public Clause getCopy() {
+            return new Clause(stream().collect(Collectors.toSet()));
         }
 
         @Override
@@ -177,6 +192,10 @@ public class Formula {
         public Literal(String variable, boolean complement) {
             this.variable = variable;
             this.complement = complement;
+        }
+
+        public Literal(String variable) {
+            this(variable, false);
         }
 
         public Literal complemented() {

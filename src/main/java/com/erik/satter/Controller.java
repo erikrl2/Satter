@@ -58,12 +58,12 @@ public class Controller {
         initSudokuFormula(); // Maybe call in constructor?
 
         // DEBUG
-        String[] a = {"987654321", "123789456", "456123789"
-                , "213546879", "564897231", "897231564"
-                , "798465132", "312978645", "645312978"};
+//        String[] a = {"xxxxxxxxx", "129458637", "543167892", "365921487", "894375216", "271684935", "612549738", "943782561", "758316429"};
+//        String[] a = {"876293154", "129458637", "543167892", "365921487", "894375216", "271684935", "612549738", "943782561", "758316429"};
+        String[] a = {"987654321", "123789456", "456123789", "213546879", "564897231", "897231564", "798465132", "312978645", "645312978"};
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-//                if (i != 0 || j != 0) cells[i][j].setText(a[i].charAt(j) + "");
+                cells[i][j].setText(a[i].charAt(j) + "");
             }
         }
     }
@@ -74,6 +74,16 @@ public class Controller {
 
         // TODO: Add clauses directly (without string parsing) and store vars as short instead of strings
 
+        // No empty cells
+        for (int b = 1; b <= 9; b++) {
+            for (int c = 1; c <= 9; c++) {
+                clause = new StringJoiner("+", "(", ")");
+                for (int x = 1; x <= 9; x++) {
+                    clause.add("" + x + b + c);
+                }
+                formula.append(clause);
+            }
+        }
         // No duplicates in blocks
         for (int x = 1; x <= 9; x++) {
             for (int b = 1; b <= 9; b++) {
@@ -84,6 +94,7 @@ public class Controller {
                 formula.append(clause);
             }
         }
+        // TODO: Clean up using 2 outer loops of range 2 (http://cse.unl.edu/~choueiry/S17-235H/files/SATslides02.pdf page 9)
         // No duplicates in rows
         for (int x = 1; x <= 9; x++) {
             for (int bi = 0; bi < 9 * 3; bi++) {
@@ -112,14 +123,12 @@ public class Controller {
         // Only one number per cell
         for (int b = 1; b <= 9; b++) {
             for (int c = 1; c <= 9; c++) {
-                for (int x = 1; x <= 9; x++) {
-                    for (int y = 1; y <= 9; y++) {
-                        if (y != x) {
-                            clause = new StringJoiner("+", "(", ")");
-                            clause.add("" + x + b + c + "'");
-                            clause.add("" + y + b + c + "'");
-                            formula.append(clause);
-                        }
+                for (int x = 1; x <= 8; x++) {
+                    for (int y = x + 1; y <= 9; y++) {
+                        clause = new StringJoiner("+", "(", ")");
+                        clause.add("" + x + b + c + "'");
+                        clause.add("" + y + b + c + "'");
+                        formula.append(clause);
                     }
                 }
             }
@@ -132,17 +141,17 @@ public class Controller {
     private void solveSudoku() {
         // TODO: If sudoku unchanged, return last assignment
 
-        solveButton.setId("valid");
+        solveButton.setDisable(true);
 
-        StringBuilder clauses = new StringBuilder();
+        StringBuilder clauseBuilder = new StringBuilder();
         for (int b = 0; b < 9; b++) {
             for (int c = 0; c < 9; c++) {
                 if (!cells[b][c].getText().isEmpty()) {
-                    clauses.append("(").append(cells[b][c].getText()).append(b + 1).append(c + 1).append(")");
+                    clauseBuilder.append("(").append(cells[b][c].getText()).append(b + 1).append(c + 1).append(")");
                 }
             }
         }
-        Formula formula = new Formula(clauses.toString());
+        Formula formula = new Formula(clauseBuilder.toString());
         formula.mergeWithCopyOf(sudokuFormula);
 
         solverThread.execute(() -> {
@@ -150,11 +159,14 @@ public class Controller {
             Platform.runLater(() -> {
                 if (assignment.isEmpty()) {
                     solveButton.setId("invalid");
+                } else {
+                    solveButton.setId("valid");
+                    assignment.entrySet().stream().filter(Map.Entry::getValue).forEach(e -> {
+                        String var = e.getKey();
+                        cells[var.charAt(1) - '1'][var.charAt(2) - '1'].setText(var.charAt(0) + "");
+                    });
                 }
-                assignment.entrySet().stream().filter(Map.Entry::getValue).forEach(e -> {
-                    String var = e.getKey();
-                    cells[var.charAt(1) - '1'][var.charAt(2) - '1'].setText(var.charAt(0) + "");
-                });
+                solveButton.setDisable(false);
             });
         });
     }
