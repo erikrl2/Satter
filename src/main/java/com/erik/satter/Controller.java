@@ -5,12 +5,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import org.sat4j.core.Vec;
+import org.sat4j.core.VecInt;
+import org.sat4j.minisat.SolverFactory;
+import org.sat4j.specs.ContradictionException;
+import org.sat4j.specs.ISolver;
+import org.sat4j.specs.TimeoutException;
 
-import java.util.Map;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 public class Controller {
 
@@ -26,14 +34,19 @@ public class Controller {
     Formula satFormula;
     TextField[][] cells;
 
-    public void initialize() {
+//    Vec<VecInt> sudokuFormula; // TODO: Use
+    ISolver solver;
+
+    public Controller() {
+        solver = SolverFactory.newDefault();
         solverThread = Executors.newSingleThreadExecutor();
+    }
+
+    public void initialize() {
         initSudoku();
         initSatSolver();
 
-        // DEBUG
-        System.gc();
-        System.out.println((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1_000_000.d + " MB");
+        initSudokuFormula();
     }
 
     private void initSudoku() {
@@ -55,15 +68,12 @@ public class Controller {
             }
         }
 
-        initSudokuFormula(); // Maybe call in constructor?
-
         // DEBUG
-//        String[] a = {"xxxxxxxxx", "129458637", "543167892", "365921487", "894375216", "271684935", "612549738", "943782561", "758316429"};
+        String[] a = {"xxxxxxxxx", "129458637", "543167892", "365921487", "894375216", "271684935", "612549738", "943782561", "758316429"};
 //        String[] a = {"876293154", "129458637", "543167892", "365921487", "894375216", "271684935", "612549738", "943782561", "758316429"};
-        String[] a = {"987654321", "123789456", "456123789", "213546879", "564897231", "897231564", "798465132", "312978645", "645312978"};
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                cells[i][j].setText(a[i].charAt(j) + "");
+//                cells[i][j].setText(a[i].charAt(j) + "");
             }
         }
     }
@@ -72,7 +82,8 @@ public class Controller {
         StringBuilder formula = new StringBuilder();
         StringJoiner clause = null;
 
-        // TODO: Add clauses directly (without string parsing) and store vars as short instead of strings
+        // TODO: Add clauses/literals directly to Vec/VecInt not using Formula class
+        // TODO: Unite duplicated code fragments
 
         // No empty cells
         for (int b = 1; b <= 9; b++) {
@@ -138,9 +149,7 @@ public class Controller {
     }
 
     @FXML
-    private void solveSudoku() {
-        // TODO: If sudoku unchanged, return last assignment
-
+    private void solveSudoku() throws ContradictionException {
         solveButton.setDisable(true);
 
         StringBuilder clauseBuilder = new StringBuilder();
@@ -151,23 +160,33 @@ public class Controller {
                 }
             }
         }
+        // TODO: Get rid of Formula class
         Formula formula = new Formula(clauseBuilder.toString());
         formula.mergeWithCopyOf(sudokuFormula);
 
+        List<VecInt> clauses = formula.stream().map(c -> new VecInt(c.stream().mapToInt(l ->
+                Integer.parseInt(l.getVariable()) * (l.isComplement() ? -1 : 1)).toArray())).toList();
+        solver.addAllClauses(new Vec<>(clauses.toArray(new VecInt[0])));
+
         solverThread.execute(() -> {
-            var assignment = formula.getAssignment();
+            boolean satisfiable = false;
+            try {
+                satisfiable = solver.isSatisfiable();
+            } catch (TimeoutException e) {
+                System.out.println(e.getLocalizedMessage());
+            }
+            boolean finalSatisfiable = satisfiable;
             Platform.runLater(() -> {
-                if (assignment.isEmpty()) {
-                    solveButton.setId("invalid");
-                } else {
+                if (finalSatisfiable) {
+                    IntStream.of(solver.model()).filter(i -> i > 0).boxed().map(String::valueOf).forEach(var ->
+                            cells[var.charAt(1) - '1'][var.charAt(2) - '1'].setText(var.charAt(0) + ""));
                     solveButton.setId("valid");
-                    assignment.entrySet().stream().filter(Map.Entry::getValue).forEach(e -> {
-                        String var = e.getKey();
-                        cells[var.charAt(1) - '1'][var.charAt(2) - '1'].setText(var.charAt(0) + "");
-                    });
+                } else {
+                    solveButton.setId("invalid");
                 }
                 solveButton.setDisable(false);
             });
+            solver.reset();
         });
     }
 

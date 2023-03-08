@@ -28,6 +28,10 @@ public class Formula {
         clauses.clear();
         assignment.clear();
 
+        // TODO: Get rid of regex matching and replace with string splitting
+        // substring 1, length - 1
+        // split ")(" -> split "+"
+
         Pattern clausePattern = Pattern.compile("\\(.*?\\)");
         Matcher clauseMatcher = clausePattern.matcher(formula);
         while (clauseMatcher.find()) {
@@ -118,6 +122,10 @@ public class Formula {
         return clauses.stream().map(Clause::getCopy).collect(Collectors.toSet());
     }
 
+    public Stream<Clause> stream() {
+        return clauses.stream();
+    }
+
     @Override
     public String toString() {
         return clauses.stream().sorted(Comparator.comparingInt(c -> c.id)).map(String::valueOf).collect(Collectors.joining(" ∧ "));
@@ -186,7 +194,7 @@ public class Formula {
     }
 
     public static class Literal {
-        private final String variable; // Make generic for less memory usage (i.e. short instead of string)
+        private final String variable;
         private final boolean complement;
 
         public Literal(String variable, boolean complement) {
@@ -200,6 +208,14 @@ public class Formula {
 
         public Literal complemented() {
             return new Literal(variable, !complement);
+        }
+
+        public String getVariable() {
+            return variable;
+        }
+
+        public boolean isComplement() {
+            return complement;
         }
 
         @Override
