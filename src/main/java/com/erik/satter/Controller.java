@@ -6,208 +6,149 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import org.sat4j.core.Vec;
 import org.sat4j.core.VecInt;
 import org.sat4j.minisat.SolverFactory;
 import org.sat4j.specs.ContradictionException;
 import org.sat4j.specs.ISolver;
+import org.sat4j.specs.IVecInt;
 import org.sat4j.specs.TimeoutException;
 
-import java.util.List;
-import java.util.StringJoiner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static com.erik.satter.Utils.Lit;
 
 public class Controller {
 
     @FXML
     GridPane sudoku;
+    TextField[][] cells;
+    Vec<IVecInt> sudokuFormula;
+    ISolver sudokuSolver;
     @FXML
     Button solveButton;
+
     @FXML
     TextArea formulaText, input, output;
+    Formula satFormula;
 
     ExecutorService solverThread;
-    Formula sudokuFormula;
-    Formula satFormula;
-    TextField[][] cells;
-
-//    Vec<VecInt> sudokuFormula; // TODO: Use
-    ISolver solver;
 
     public Controller() {
-        solver = SolverFactory.newDefault();
+        sudokuSolver = SolverFactory.newDefault();
         solverThread = Executors.newSingleThreadExecutor();
     }
 
     public void initialize() {
         initSudoku();
-        initSatSolver();
-
         initSudokuFormula();
+        initSatSolver();
     }
 
     private void initSudoku() {
-        cells = sudoku.getChildren().stream().filter(e -> e instanceof GridPane).map(e ->
+        TextField[][] gridCells = sudoku.getChildren().stream().filter(e -> e instanceof GridPane).map(e ->
                 ((GridPane) e).getChildren().stream().filter(node -> node instanceof TextField).map(node ->
-                        (TextField) node).toList().toArray(new TextField[0])).toList().toArray(new TextField[0][]);
+                        (TextField) node).toArray(TextField[]::new)).toArray(TextField[][]::new);
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                int finalI = i, finalJ = j;
-                cells[i][j].textProperty().addListener((observable, oldValue, newValue) -> {
+        cells = new TextField[9][9];
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                TextField cell = gridCells[r / 3 * 3 + c / 3][r % 3 * 3 + c % 3];
+                cell.textProperty().addListener((o, oldValue, newValue) -> {
                     if (newValue.matches("[1-9]+")) {
                         int index = !oldValue.isEmpty() && newValue.startsWith(oldValue) ? 1 : 0;
-                        cells[finalI][finalJ].setText(newValue.charAt(index) + "");
+                        cell.setText(newValue.charAt(index) + "");
                     } else if (newValue.length() > 0) {
-                        cells[finalI][finalJ].setText(oldValue);
+                        cell.setText(oldValue);
                     }
                 });
-            }
-        }
-
-        // DEBUG
-        String[] a = {"xxxxxxxxx", "129458637", "543167892", "365921487", "894375216", "271684935", "612549738", "943782561", "758316429"};
-//        String[] a = {"876293154", "129458637", "543167892", "365921487", "894375216", "271684935", "612549738", "943782561", "758316429"};
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-//                cells[i][j].setText(a[i].charAt(j) + "");
+                cell.addEventFilter(KeyEvent.ANY, e -> {
+                    if (e.getCode() == KeyCode.Z && e.isShortcutDown()) e.consume(); // Prevents crash
+                    if (e.getCode() == KeyCode.BACK_SPACE || e.getCode() == KeyCode.DELETE) cell.clear();
+                });
+                cells[r][c] = cell;
             }
         }
     }
 
     private void initSudokuFormula() {
-        StringBuilder formula = new StringBuilder();
-        StringJoiner clause = null;
+        sudokuFormula = new Vec<>(3240);
 
-        // TODO: Add clauses/literals directly to Vec/VecInt not using Formula class
-        // TODO: Unite duplicated code fragments
+        IntStream.range(1, 10).forEach(r -> IntStream.range(0, 27).mapToObj(c -> IntStream.range(1, 10).map(v -> {
+            if (c < 9) return Lit.of(r, c + 1, v);
+            else if (c < 18) return Lit.of(r, v, c - 8);
+            return Lit.of(v, r, c - 17);
+        }).toArray()).forEach(clause -> sudokuFormula.push(new VecInt(clause))));
 
-        // No empty cells
-        for (int b = 1; b <= 9; b++) {
-            for (int c = 1; c <= 9; c++) {
-                clause = new StringJoiner("+", "(", ")");
-                for (int x = 1; x <= 9; x++) {
-                    clause.add("" + x + b + c);
-                }
-                formula.append(clause);
-            }
-        }
-        // No duplicates in blocks
-        for (int x = 1; x <= 9; x++) {
-            for (int b = 1; b <= 9; b++) {
-                clause = new StringJoiner("+", "(", ")");
-                for (int c = 1; c <= 9; c++) {
-                    clause.add("" + x + b + c);
-                }
-                formula.append(clause);
-            }
-        }
-        // TODO: Clean up using 2 outer loops of range 2 (http://cse.unl.edu/~choueiry/S17-235H/files/SATslides02.pdf page 9)
-        // No duplicates in rows
-        for (int x = 1; x <= 9; x++) {
-            for (int bi = 0; bi < 9 * 3; bi++) {
-                int b = bi % 3 + (bi / 9 * 3 + 1);
-                if (b % 3 == 1) clause = new StringJoiner("+", "(", ")");
-                int ci = bi / 3 % 3 * 3 + 1;
-                for (int c = ci; c < ci + 3; c++) {
-                    clause.add("" + x + b + c);
-                }
-                if (b % 3 == 0) formula.append(clause);
-            }
-        }
-        // No duplicates in columns
-        for (int x = 1; x <= 9; x++) {
-            for (int bi = 0; bi < 9 * 3; bi++) {
-                int bj = bi % 3 + (bi / 9 * 3 + 1);
-                if (bj % 3 == 1) clause = new StringJoiner("+", "(", ")");
-                int b = (bj - bi / 9 * 3 - 1) * 3 + bi / 9 + 1;
-                int ci = bi / 3 % 3 + 1;
-                for (int c = ci; c < ci + 9; c += 3) {
-                    clause.add("" + x + b + c);
-                }
-                if (bj % 3 == 0) formula.append(clause);
-            }
-        }
-        // Only one number per cell
-        for (int b = 1; b <= 9; b++) {
-            for (int c = 1; c <= 9; c++) {
-                for (int x = 1; x <= 8; x++) {
-                    for (int y = x + 1; y <= 9; y++) {
-                        clause = new StringJoiner("+", "(", ")");
-                        clause.add("" + x + b + c + "'");
-                        clause.add("" + y + b + c + "'");
-                        formula.append(clause);
-                    }
-                }
-            }
-        }
+        IntStream.range(1, 10).forEach(r -> IntStream.range(1, 10).forEach(c -> IntStream.range(1, 9).forEach(v1 ->
+                IntStream.range(v1 + 1, 10).forEach(v2 -> sudokuFormula.push(new VecInt(new int[]{Lit.compOf(r, c, v1), Lit.compOf(r, c, v2)}))))));
 
-        sudokuFormula = new Formula(formula.toString());
-    }
-
-    @FXML
-    private void solveSudoku() throws ContradictionException {
-        solveButton.setDisable(true);
-
-        StringBuilder clauseBuilder = new StringBuilder();
-        for (int b = 0; b < 9; b++) {
-            for (int c = 0; c < 9; c++) {
-                if (!cells[b][c].getText().isEmpty()) {
-                    clauseBuilder.append("(").append(cells[b][c].getText()).append(b + 1).append(c + 1).append(")");
-                }
-            }
-        }
-        // TODO: Get rid of Formula class
-        Formula formula = new Formula(clauseBuilder.toString());
-        formula.mergeWithCopyOf(sudokuFormula);
-
-        List<VecInt> clauses = formula.stream().map(c -> new VecInt(c.stream().mapToInt(l ->
-                Integer.parseInt(l.getVariable()) * (l.isComplement() ? -1 : 1)).toArray())).toList();
-        solver.addAllClauses(new Vec<>(clauses.toArray(new VecInt[0])));
-
-        solverThread.execute(() -> {
-            boolean satisfiable = false;
-            try {
-                satisfiable = solver.isSatisfiable();
-            } catch (TimeoutException e) {
-                System.out.println(e.getLocalizedMessage());
-            }
-            boolean finalSatisfiable = satisfiable;
-            Platform.runLater(() -> {
-                if (finalSatisfiable) {
-                    IntStream.of(solver.model()).filter(i -> i > 0).boxed().map(String::valueOf).forEach(var ->
-                            cells[var.charAt(1) - '1'][var.charAt(2) - '1'].setText(var.charAt(0) + ""));
-                    solveButton.setId("valid");
-                } else {
-                    solveButton.setId("invalid");
-                }
-                solveButton.setDisable(false);
-            });
-            solver.reset();
-        });
+        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> IntStream.range(1, 10).mapToObj(v ->
+                IntStream.range(1, 4).flatMap(r -> IntStream.range(1, 4).map(c -> Lit.of(r + 3 * i, c + 3 * j, v)))
+                        .toArray()).forEach(clause -> sudokuFormula.push(new VecInt(clause)))));
     }
 
     private void initSatSolver() {
         satFormula = new Formula();
-        input.textProperty().addListener((observable, oldValue, newValue) -> {
+        input.textProperty().addListener((o, oldValue, newValue) -> {
             if (Formula.isValidCNF(newValue)) {
                 input.setId("valid");
                 satFormula.parse(newValue);
                 formulaText.setText(satFormula.toString());
-                satSolve();
+                solverThread.execute(() -> {
+                    var assignment = satFormula.getAssignment();
+                    Platform.runLater(() -> output.setText(!assignment.isEmpty() ? assignment.toString() : "Unsatisfiable"));
+                });
             } else {
                 input.setId("invalid");
             }
         });
     }
 
-    private void satSolve() {
+    @FXML
+    private void solveSudoku() throws ContradictionException {
+        solveButton.setDisable(true);
+
+        Vec<IVecInt> formula = new Vec<>(sudokuFormula.size());
+        sudokuFormula.copyTo(formula);
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                if (!cells[r][c].getText().isEmpty()) {
+                    formula.push(new VecInt(new int[]{Lit.of(r + 1, c + 1, Integer.parseInt(cells[r][c].getText()))}));
+                }
+            }
+        }
+        sudokuSolver.addAllClauses(formula);
+
         solverThread.execute(() -> {
-            var assignment = satFormula.getAssignment();
-            Platform.runLater(() -> output.setText(!assignment.isEmpty() ? assignment.toString() : "Unsatisfiable"));
+            boolean satisfiable = false;
+            try {
+                satisfiable = sudokuSolver.isSatisfiable();
+            } catch (TimeoutException e) {
+                System.out.println(e.getLocalizedMessage());
+            }
+            boolean finalSatisfiable = satisfiable;
+            Platform.runLater(() -> {
+                if (finalSatisfiable) {
+                    IntStream.of(sudokuSolver.model()).filter(Lit::isTrue).forEach(var ->
+                            cells[Lit.row(var) - 1][Lit.col(var) - 1].setText(Lit.val(var) + ""));
+                    solveButton.setId("valid");
+                } else {
+                    solveButton.setId("invalid");
+                }
+                solveButton.setDisable(false);
+            });
+            sudokuSolver.reset();
         });
+    }
+
+    @FXML
+    private void clearSudoku() {
+        Stream.of(cells).flatMap(Stream::of).forEach(TextField::clear);
     }
 }

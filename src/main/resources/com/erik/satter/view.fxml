@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.erik.satter.Controller">
+    <Tab closable="false" text="Sudoku Solver">
+        <AnchorPane>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <GridPane fx:id="sudoku" alignment="CENTER" gridLinesVisible="true" prefHeight="400.0"
+                      prefWidth="400.0" styleClass="grid" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.topAnchor="0.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <GridPane alignment="CENTER" gridLinesVisible="true" styleClass="grid">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <TextField alignment="CENTER" maxWidth="45.0" prefHeight="45.0">
+                        <GridPane.margin>
+                            <Insets/>
+                        </GridPane.margin>
+                    </TextField>
+                    <TextField alignment="CENTER" layoutX="10.0" maxWidth="45.0" prefHeight="45.0"
+                               GridPane.columnIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="43.0" maxWidth="45.0" prefHeight="45.0"
+                               GridPane.columnIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" maxWidth="45.0" prefHeight="45.0"
+                               GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" maxWidth="45.0"
+                               prefHeight="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" maxWidth="45.0" prefHeight="45.0"
+                               GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" maxWidth="45.0" prefHeight="45.0"
+                               GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" maxWidth="45.0" prefHeight="45.0"
+                               GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" prefHeight="45.0"
+                               GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                </GridPane>
+                <GridPane alignment="CENTER" gridLinesVisible="true" styleClass="grid"
+                          GridPane.columnIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <TextField alignment="CENTER" prefHeight="45.0" prefWidth="45.0"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                </GridPane>
+                <GridPane alignment="CENTER" gridLinesVisible="true" styleClass="grid"
+                          GridPane.columnIndex="2">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <TextField alignment="CENTER" prefHeight="45.0" prefWidth="45.0"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                </GridPane>
+                <GridPane alignment="CENTER" gridLinesVisible="true" styleClass="grid"
+                          GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <TextField alignment="CENTER" prefHeight="45.0" prefWidth="45.0"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                </GridPane>
+                <GridPane alignment="CENTER" gridLinesVisible="true" styleClass="grid"
+                          GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <TextField alignment="CENTER" prefHeight="45.0" prefWidth="45.0"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                </GridPane>
+                <GridPane alignment="CENTER" gridLinesVisible="true" styleClass="grid"
+                          GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <TextField alignment="CENTER" prefHeight="45.0" prefWidth="45.0"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                </GridPane>
+                <GridPane alignment="CENTER" gridLinesVisible="true" styleClass="grid"
+                          GridPane.rowIndex="2">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <TextField alignment="CENTER" prefHeight="45.0" prefWidth="45.0"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                </GridPane>
+                <GridPane alignment="CENTER" gridLinesVisible="true" styleClass="grid"
+                          GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <TextField alignment="CENTER" prefHeight="45.0" prefWidth="45.0"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                </GridPane>
+                <GridPane alignment="CENTER" gridLinesVisible="true" styleClass="grid"
+                          GridPane.columnIndex="2" GridPane.rowIndex="2">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <TextField alignment="CENTER" prefHeight="45.0" prefWidth="45.0"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="43.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <TextField alignment="CENTER" layoutX="10.0" layoutY="12.0" prefHeight="45.0"
+                               prefWidth="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                </GridPane>
+            </GridPane>
+            <Button fx:id="solveButton" mnemonicParsing="false" onAction="#solveSudoku" text="Solve"
+                    textAlignment="CENTER" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="0.0">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </padding>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#clearSudoku" text="Clear" textAlignment="CENTER"
+                    AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="60.0">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </padding>
+            </Button>
+        </AnchorPane>
+    </Tab>
+    <Tab closable="false" text="DPLL SAT Solver">
+        <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <TextArea fx:id="formulaText" editable="false" prefHeight="200.0" prefWidth="200.0"
+                      wrapText="true">
+            </TextArea>
+            <TextArea id="valid" fx:id="input" prefHeight="250.0" promptText="Example: (x+y')(y+z')"
+                      wrapText="true"/>
+            <TextArea fx:id="output" editable="false" layoutX="30.0" layoutY="30.0" prefHeight="200.0"
+                      prefWidth="200.0" wrapText="true">
+            </TextArea>
+        </VBox>
+    </Tab>
+</TabPane>

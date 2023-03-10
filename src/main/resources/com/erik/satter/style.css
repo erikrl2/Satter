@@ -2,7 +2,8 @@
     -fx-background-color: #1e1f22;
     -fx-text-fill: white;
     -fx-tab-min-width: 50px;
-    -fx-tab-min-height: 30px;
+    -fx-tab-min-height: 35px;
+    -fx-font-size: 14px;
 }
 
 .tab {
@@ -39,12 +40,15 @@
 }
 
 .text-field {
+    -fx-font-family: Arial;
+    -fx-font-size: 24;
     -fx-display-caret: false;
     -fx-background-color: #1e1f22;
     -fx-text-fill: white;
     -fx-highlight-fill: transparent;
     -fx-border-color: black;
     -fx-border-width: 1px;
+    -fx-padding: 0;
 }
 
 .text-field:focused {
@@ -52,6 +56,8 @@
 }
 
 .button {
+    -fx-font-family: Arial;
+    -fx-font-size: 18;
     -fx-background-color: #1e1f22;
     -fx-border-color: #039ED3;
     -fx-text-fill: white;
@@ -62,6 +68,8 @@
 }
 
 .text-area {
+    -fx-font-family: Arial;
+    -fx-font-size: 16;
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-prompt-text-fill: grey;
@@ -81,4 +89,8 @@
 
 #invalid {
     -fx-border-color: red;
+}
+
+#bold {
+    -fx-font-weight: bold;
 }

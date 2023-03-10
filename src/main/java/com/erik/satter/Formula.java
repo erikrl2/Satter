@@ -1,8 +1,6 @@
 package com.erik.satter;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -15,42 +13,27 @@ public class Formula {
         assignment = new HashMap<>();
     }
 
-    public Formula(String formula) {
-        this();
-        parse(formula);
-    }
-
     public static boolean isValidCNF(String formula) {
         return formula.matches("(\\(\\w+'?(\\+\\w+'?)*\\))*");
     }
 
     public void parse(String formula) {
-        clauses.clear();
-        assignment.clear();
-
-        // TODO: Get rid of regex matching and replace with string splitting
-        // substring 1, length - 1
-        // split ")(" -> split "+"
-
-        Pattern clausePattern = Pattern.compile("\\(.*?\\)");
-        Matcher clauseMatcher = clausePattern.matcher(formula);
-        while (clauseMatcher.find()) {
-            String clause = clauseMatcher.group();
-            clause = clause.substring(1, clause.length() - 1);
-            Set<Literal> literals = new HashSet<>();
-            Stream.of(clause.split("\\+")).map(s -> {
-                boolean comp = s.endsWith("'");
-                return new Literal(comp ? s.substring(0, s.length() - 1) : s, comp);
-            }).forEachOrdered(literals::add);
-            clauses.add(new Clause(literals));
-        }
+        clear();
+        if (formula.length() == 0) return;
+        formula = formula.substring(1, formula.length() - 1);
+        Stream.of(formula.split("\\)\\(")).map(Clause::new).forEach(clauses::add);
     }
 
     public Map<String, Boolean> getAssignment() {
         if (assignment.isEmpty()) {
-            solve(clauses); // Note: This messes up the clauses Set
+            solve(clauses);
         }
         return assignment;
+    }
+
+    private void clear() {
+        clauses.clear();
+        assignment.clear();
     }
 
     private boolean solve(Set<Clause> clauses) {
@@ -62,7 +45,6 @@ public class Formula {
             oneLiterals.forEach(l -> setTrue(clauses, l));
         } while (clauses.stream().anyMatch(Clause::isSizeOne));
 
-        // Maybe remove PLR for sudoku performance?
         Set<Literal> literals = clauses.stream().flatMap(Clause::stream).collect(Collectors.toSet());
         Set<Literal> pureLiterals = literals.stream().filter(l -> !literals.contains(l.complemented())).collect(Collectors.toSet());
 
@@ -114,16 +96,8 @@ public class Formula {
         return removed;
     }
 
-    public void mergeWithCopyOf(Formula other) {
-        clauses.addAll(other.getCopyOfClauses());
-    }
-
     private Set<Clause> getCopyOfClauses() {
         return clauses.stream().map(Clause::getCopy).collect(Collectors.toSet());
-    }
-
-    public Stream<Clause> stream() {
-        return clauses.stream();
     }
 
     @Override
@@ -131,7 +105,7 @@ public class Formula {
         return clauses.stream().sorted(Comparator.comparingInt(c -> c.id)).map(String::valueOf).collect(Collectors.joining(" ∧ "));
     }
 
-    public static class Clause {
+    private static class Clause {
         private final Set<Literal> literals;
 
         private final int id = s_id++;
@@ -143,6 +117,10 @@ public class Formula {
 
         public Clause(Literal... literals) {
             this.literals = new HashSet<>(Set.of(literals));
+        }
+
+        public Clause(String clauseString) {
+            this(Stream.of(clauseString.split("\\+")).map(Literal::new).toArray(Literal[]::new));
         }
 
         public boolean contains(Literal literal) {
@@ -193,7 +171,7 @@ public class Formula {
         }
     }
 
-    public static class Literal {
+    private static class Literal {
         private final String variable;
         private final boolean complement;
 
@@ -202,20 +180,14 @@ public class Formula {
             this.complement = complement;
         }
 
-        public Literal(String variable) {
-            this(variable, false);
+        public Literal(String literal) {
+            boolean comp = literal.endsWith("'");
+            variable = comp ? literal.substring(0, literal.length() - 1) : literal;
+            complement = comp;
         }
 
         public Literal complemented() {
             return new Literal(variable, !complement);
-        }
-
-        public String getVariable() {
-            return variable;
-        }
-
-        public boolean isComplement() {
-            return complement;
         }
 
         @Override
