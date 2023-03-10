@@ -90,7 +90,3 @@
 #invalid {
     -fx-border-color: red;
 }
-
-#bold {
-    -fx-font-weight: bold;
-}

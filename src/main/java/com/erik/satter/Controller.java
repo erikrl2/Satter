@@ -81,16 +81,20 @@ public class Controller {
 
         IntStream.range(1, 10).forEach(r -> IntStream.range(0, 27).mapToObj(c -> IntStream.range(1, 10).map(v -> {
             if (c < 9) return Lit.of(r, c + 1, v);
-            else if (c < 18) return Lit.of(r, v, c - 8);
+            if (c < 18) return Lit.of(r, v, c - 8);
             return Lit.of(v, r, c - 17);
-        }).toArray()).forEach(clause -> sudokuFormula.push(new VecInt(clause))));
+        }).toArray()).forEach(this::pushClause));
 
         IntStream.range(1, 10).forEach(r -> IntStream.range(1, 10).forEach(c -> IntStream.range(1, 9).forEach(v1 ->
-                IntStream.range(v1 + 1, 10).forEach(v2 -> sudokuFormula.push(new VecInt(new int[]{Lit.compOf(r, c, v1), Lit.compOf(r, c, v2)}))))));
+                IntStream.range(v1 + 1, 10).forEach(v2 -> pushClause(Lit.compOf(r, c, v1), Lit.compOf(r, c, v2))))));
 
         IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> IntStream.range(1, 10).mapToObj(v ->
                 IntStream.range(1, 4).flatMap(r -> IntStream.range(1, 4).map(c -> Lit.of(r + 3 * i, c + 3 * j, v)))
-                        .toArray()).forEach(clause -> sudokuFormula.push(new VecInt(clause)))));
+                        .toArray()).forEach(this::pushClause)));
+    }
+
+    private void pushClause(int... clause) {
+        sudokuFormula.push(new VecInt(clause));
     }
 
     private void initSatSolver() {
